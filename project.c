@@ -2,17 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Structures for data storage
 typedef struct {
     int id;
     char name[50];
     int quantity;
     float price;
+    float discount;
 } Medicine;
 
 typedef struct {
     char username[50];
     char password[50];
+    char bkash[20]; 
+    char rocket[20];
 } User;
 
 typedef struct {
@@ -20,13 +22,28 @@ typedef struct {
     int medicineID;
     int quantity;
     float totalPrice;
+    int status; 
 } Order;
 
-// Function prototypes
+
 void adminModule();
 void customerModule();
+void resetAdminCredentials();
+void salesListCheck();
+void searchMedicineAdmin();
+void customerSupportAdmin();
+void refundAndReturnCheck();
+void medicineRequestCheck();
+void addDiscount();
+void addToCart();
+void paymentMethod();
+void resetCustomerCredentials();
+void customerSupport();
 
-// Admin functions
+
+FILE *medicineFile, *userFile, *orderFile;
+
+
 void adminRegister();
 void adminLogin();
 void addMedicine();
@@ -34,8 +51,9 @@ void deleteMedicine();
 void updateMedicine();
 void viewMedicines();
 void viewOrders();
+void searchMedicineAdmin();
 
-// Customer functions
+
 void customerRegister();
 void customerLogin();
 void searchMedicine();
@@ -43,10 +61,6 @@ void buyMedicine();
 void viewCart();
 void requestRefund();
 
-// Global file pointers
-FILE *medicineFile, *userFile, *orderFile;
-
-// Main function
 int main() {
     int choice;
 
@@ -158,7 +172,14 @@ void adminLogin() {
             printf("3. Update Medicine\n");
             printf("4. View Medicines\n");
             printf("5. View Orders\n");
-            printf("6. Logout\n");
+            printf("6. Reset Credentials\n");
+            printf("7. Sales List Check\n");
+            printf("8. Search Medicine\n");
+            printf("9. Customer Support Panel\n");
+            printf("10. Refund and Return Request Check\n");
+            printf("11. Medicine Request Check\n");
+            printf("12. Add Discount\n");
+            printf("13. Logout\n");
             printf("Enter your choice: ");
             scanf("%d", &choice);
 
@@ -179,6 +200,27 @@ void adminLogin() {
                     viewOrders();
                     break;
                 case 6:
+                    resetAdminCredentials();
+                    break;
+                case 7:
+                    salesListCheck();
+                    break;
+                case 8:
+                    searchMedicineAdmin();
+                    break;
+                case 9:
+                    customerSupportAdmin();
+                    break;
+                case 10:
+                    refundAndReturnCheck();
+                    break;
+                case 11:
+                    medicineRequestCheck();
+                    break;
+                case 12:
+                    addDiscount();
+                    break;
+                case 13:
                     return;
                 default:
                     printf("Invalid choice! Please try again.\n");
@@ -206,6 +248,8 @@ void addMedicine() {
     scanf("%d", &medicine.quantity);
     printf("Enter price: ");
     scanf("%f", &medicine.price);
+    printf("Enter discount: ");
+    scanf("%f", &medicine.discount);
 
     fwrite(&medicine, sizeof(Medicine), 1, medicineFile);
     fclose(medicineFile);
@@ -273,6 +317,8 @@ void updateMedicine() {
             scanf("%d", &medicine.quantity);
             printf("Enter new price: ");
             scanf("%f", &medicine.price);
+            printf("Enter new discount: ");
+            scanf("%f", &medicine.discount);
         }
         fwrite(&medicine, sizeof(Medicine), 1, tempFile);
     }
@@ -301,8 +347,8 @@ void viewMedicines() {
 
     printf("\n=== Medicine List ===\n");
     while (fread(&medicine, sizeof(Medicine), 1, medicineFile)) {
-        printf("ID: %d | Name: %s | Quantity: %d | Price: %.2f\n",
-               medicine.id, medicine.name, medicine.quantity, medicine.price);
+        printf("ID: %d | Name: %s | Quantity: %d | Price: %.2f | Discount: %.2f\n",
+               medicine.id, medicine.name, medicine.quantity, medicine.price, medicine.discount);
     }
 
     fclose(medicineFile);
@@ -319,14 +365,68 @@ void viewOrders() {
 
     printf("\n=== Order List ===\n");
     while (fread(&order, sizeof(Order), 1, orderFile)) {
-        printf("Customer: %s | Medicine ID: %d | Quantity: %d | Total Price: %.2f\n",
-               order.username, order.medicineID, order.quantity, order.totalPrice);
+        printf("Customer: %s | Medicine ID: %d | Quantity: %d | Total Price: %.2f | Status: %s\n",
+               order.username, order.medicineID, order.quantity, order.totalPrice, order.status == 0 ? "Pending" : "Refunded");
     }
 
     fclose(orderFile);
 }
 
-// Customer module
+void resetAdminCredentials() {
+    printf("Contact with 3idiot@gmail.com\n");
+}
+
+void salesListCheck() {
+    printf("Sales list check feature not implemented yet.\n");
+}
+
+void searchMedicineAdmin() {
+    Medicine medicine;
+    int found = 0;
+    char name[50];
+
+    medicineFile = fopen("medicines.txt", "r");
+    if (!medicineFile) {
+        printf("Error opening file.\n");
+        return;
+    }
+
+    printf("Enter medicine Name to search: ");
+    scanf("%s", name);
+
+    while (fread(&medicine, sizeof(Medicine), 1, medicineFile)) {
+        if (strcmp(medicine.name, name) == 0) {
+            found = 1;
+            printf("ID: %d | Name: %s | Quantity: %d | Price: %.2f | Discount: %.2f\n",
+                   medicine.id, medicine.name, medicine.quantity, medicine.price, medicine.discount);
+            break;
+        }
+    }
+
+    fclose(medicineFile);
+
+    if (!found) {
+        printf("Medicine not found.\n");
+    }
+}
+
+
+void customerSupportAdmin() {
+    printf("Contact with 3idiot@gmail.com\n");
+}
+
+void refundAndReturnCheck() {
+    printf("Refund and return request check feature not implemented yet.\n");
+}
+
+void medicineRequestCheck() {
+    printf("Medicine request check feature not implemented yet.\n");
+}
+
+void addDiscount() {
+    printf("You can add when adding new medicine or update medicine\n");
+}
+
 void customerModule() {
     int choice;
 
@@ -366,6 +466,10 @@ void customerRegister() {
     scanf("%s", customer.username);
     printf("Enter password: ");
     scanf("%s", customer.password);
+    printf("Enter Bkash number: ");
+    scanf("%s", customer.bkash);
+    printf("Enter Rocket number: ");
+    scanf("%s", customer.rocket);
 
     fwrite(&customer, sizeof(User), 1, userFile);
     fclose(userFile);
@@ -407,7 +511,11 @@ void customerLogin() {
             printf("2. Buy Medicine\n");
             printf("3. View Cart\n");
             printf("4. Request Refund\n");
-            printf("5. Logout\n");
+            printf("5. Add to Cart\n");
+            printf("6. Payment Method\n");
+            printf("7. Reset Credentials\n");
+            printf("8. Customer Support Panel\n");
+            printf("9. Logout\n");
             printf("Enter your choice: ");
             scanf("%d", &choice);
 
@@ -425,6 +533,18 @@ void customerLogin() {
                     requestRefund();
                     break;
                 case 5:
+                    addToCart();
+                    break;
+                case 6:
+                    paymentMethod();
+                    break;
+                case 7:
+                    resetCustomerCredentials();
+                    break;
+                case 8:
+                    customerSupport();
+                    break;
+                case 9:
                     return;
                 default:
                     printf("Invalid choice! Please try again.\n");
@@ -437,7 +557,8 @@ void customerLogin() {
 
 void searchMedicine() {
     Medicine medicine;
-    int id, found = 0;
+    int found = 0;
+    char name[50];
 
     medicineFile = fopen("medicines.txt", "r");
     if (!medicineFile) {
@@ -445,14 +566,14 @@ void searchMedicine() {
         return;
     }
 
-    printf("Enter medicine ID to search: ");
-    scanf("%d", &id);
+    printf("Enter medicine Name to search: ");
+    scanf("%s", name);
 
     while (fread(&medicine, sizeof(Medicine), 1, medicineFile)) {
-        if (medicine.id == id) {
+        if (strcmp(medicine.name, name) == 0) {
             found = 1;
-            printf("ID: %d | Name: %s | Quantity: %d | Price: %.2f\n",
-                   medicine.id, medicine.name, medicine.quantity, medicine.price);
+            printf("ID: %d | Name: %s | Quantity: %d | Price: %.2f | Discount: %.2f\n",
+                   medicine.id, medicine.name, medicine.quantity, medicine.price, medicine.discount);
             break;
         }
     }
@@ -463,6 +584,7 @@ void searchMedicine() {
         printf("Medicine not found.\n");
     }
 }
+
 
 void buyMedicine() {
     Order order;
@@ -491,7 +613,7 @@ void buyMedicine() {
             scanf("%s", order.username);
             order.medicineID = id;
             order.quantity = quantity;
-            order.totalPrice = quantity * medicine.price;
+            order.totalPrice = quantity * medicine.price * (1 - (medicine.discount / 100)); 
 
             fwrite(&order, sizeof(Order), 1, orderFile);
             fclose(orderFile);
@@ -530,8 +652,8 @@ void viewCart() {
     while (fread(&order, sizeof(Order), 1, orderFile)) {
         if (strcmp(order.username, username) == 0) {
             found = 1;
-            printf("Medicine ID: %d | Quantity: %d | Total Price: %.2f\n",
-                   order.medicineID, order.quantity, order.totalPrice);
+            printf("Medicine ID: %d | Quantity: %d | Total Price: %.2f | Status: %s\n",
+                   order.medicineID, order.quantity, order.totalPrice, order.status == 0 ? "Pending" : "Refunded");
         }
     }
 
@@ -561,12 +683,12 @@ void requestRefund() {
     scanf("%d", &id);
 
     while (fread(&order, sizeof(Order), 1, orderFile)) {
-        if (strcmp(order.username, username) == 0 && order.medicineID == id) {
+        if (strcmp(order.username, username) == 0 && order.medicineID == id && order.status == 0) {
             found = 1;
+            order.status = 1; 
             printf("Refund request accepted for Medicine ID: %d\n", id);
-        } else {
-            fwrite(&order, sizeof(Order), 1, tempFile);
         }
+        fwrite(&order, sizeof(Order), 1, tempFile);
     }
 
     fclose(orderFile);
@@ -578,4 +700,20 @@ void requestRefund() {
     if (!found) {
         printf("Order not found for refund.\n");
     }
+}
+
+void addToCart() {
+    printf("You can buy directly\n");
+}
+
+void paymentMethod() {
+    printf("Already added when you create your account\n");
+}
+
+void resetCustomerCredentials() {
+    printf("Contact with 3idiot@gmail.com\n");
+}
+
+void customerSupport() {
+    printf("Contact with 3idiot@gmail.com\n");
 }
