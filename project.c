@@ -58,8 +58,8 @@ FILE *medicineFile, *userFile, *orderFile;
 
 int main() {
     int choice;
-
     while (1) {
+        printf("\n        ========WELCOME========\n");
         printf("\n=== Medicine Store Management System ===\n");
         printf("1. Admin Module\n");
         printf("2. Customer Module\n");
