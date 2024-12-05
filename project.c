@@ -39,11 +39,6 @@ void addToCart();
 void paymentMethod();
 void resetCustomerCredentials();
 void customerSupport();
-
-
-FILE *medicineFile, *userFile, *orderFile;
-
-
 void adminRegister();
 void adminLogin();
 void addMedicine();
@@ -52,14 +47,14 @@ void updateMedicine();
 void viewMedicines();
 void viewOrders();
 void searchMedicineAdmin();
-
-
 void customerRegister();
 void customerLogin();
 void searchMedicine();
 void buyMedicine();
 void viewCart();
 void requestRefund();
+
+FILE *medicineFile, *userFile, *orderFile;
 
 int main() {
     int choice;
