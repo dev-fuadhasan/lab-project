@@ -69,15 +69,19 @@ int main() {
 
         switch (choice) {
             case 1:
+                system("cls");
                 adminModule();
                 break;
             case 2:
+                system("cls");
                 customerModule();
                 break;
             case 3:
+                system("cls");
                 printf("Exiting...\n");
                 exit(0);
             default:
+                system("cls");
                 printf("Invalid choice! Please try again.\n");
         }
     }
@@ -100,14 +104,18 @@ void adminModule() {
 
         switch (choice) {
             case 1:
+                system("cls");
                 adminRegister();
                 break;
             case 2:
+                system("cls");
                 adminLogin();
                 break;
             case 3:
+                system("cls");
                 return;
             default:
+                system("cls");
                 printf("Invalid choice! Please try again.\n");
         }
     }
@@ -130,7 +138,9 @@ void adminRegister() {
     fwrite(&admin, sizeof(User), 1, userFile);
     fclose(userFile);
 
+    system("cls");
     printf("Admin registered successfully!\n");
+    
 }
 
 void adminLogin() {
@@ -159,6 +169,7 @@ void adminLogin() {
     fclose(userFile);
 
     if (found) {
+        system("cls");
         printf("Login successful!\n");
         int choice;
         while (1) {
@@ -181,48 +192,63 @@ void adminLogin() {
 
             switch (choice) {
                 case 1:
+                    system("cls");
                     addMedicine();
                     break;
                 case 2:
+                    system("cls");
                     deleteMedicine();
                     break;
                 case 3:
+                    system("cls");
                     updateMedicine();
                     break;
                 case 4:
+                    system("cls");
                     viewMedicines();
                     break;
                 case 5:
+                    system("cls");
                     viewOrders();
                     break;
                 case 6:
+                    system("cls");
                     resetAdminCredentials();
                     break;
                 case 7:
+                    system("cls");
                     salesListCheck();
                     break;
                 case 8:
+                    system("cls");
                     searchMedicineAdmin();
                     break;
                 case 9:
+                    system("cls");
                     customerSupportAdmin();
                     break;
                 case 10:
+                    system("cls");
                     refundAndReturnCheck();
                     break;
                 case 11:
+                    system("cls");
                     medicineRequestCheck();
                     break;
                 case 12:
+                    system("cls");
                     addDiscount();
                     break;
                 case 13:
+                    system("cls");
                     return;
                 default:
+                    system("cls");
                     printf("Invalid choice! Please try again.\n");
             }
         }
     } else {
+            system("cls");
         printf("Invalid credentials.\n");
     }
 }
@@ -249,7 +275,7 @@ void addMedicine() {
 
     fwrite(&medicine, sizeof(Medicine), 1, medicineFile);
     fclose(medicineFile);
-
+    system("cls");
     printf("Medicine added successfully!\n");
 }
 
@@ -283,8 +309,10 @@ void deleteMedicine() {
     rename("temp.txt", "medicines.txt");
 
     if (found) {
+        system("cls");
         printf("Medicine deleted successfully!\n");
     } else {
+        system("cls");
         printf("Medicine not found.\n");
     }
 }
@@ -326,8 +354,10 @@ void updateMedicine() {
     rename("temp.txt", "medicines.txt");
 
     if (found) {
+        system("cls");
         printf("Medicine updated successfully!\n");
     } else {
+        system("cls");
         printf("Medicine not found.\n");
     }
 }
@@ -340,7 +370,7 @@ void viewMedicines() {
         printf("Error opening file.\n");
         return;
     }
-
+    system("cls");
     printf("\n=== Medicine List ===\n");
     while (fread(&medicine, sizeof(Medicine), 1, medicineFile)) {
         printf("ID: %d | Name: %s | Quantity: %d | Price: %.2f | Discount: %.2f\n",
@@ -358,7 +388,7 @@ void viewOrders() {
         printf("Error opening file.\n");
         return;
     }
-
+    system("cls");
     printf("\n=== Order List ===\n");
     while (fread(&order, sizeof(Order), 1, orderFile)) {
         printf("Customer: %s | Medicine ID: %d | Quantity: %d | Total Price: %.2f | Status: %s\n",
@@ -369,10 +399,12 @@ void viewOrders() {
 }
 
 void resetAdminCredentials() {
+    system("cls");
     printf("Contact with 3idiot@gmail.com\n");
 }
 
 void salesListCheck() {
+    system("cls");
     printf("Sales list check feature not implemented yet.\n");
 }
 
@@ -390,6 +422,7 @@ void searchMedicineAdmin() {
     printf("Enter medicine Name to search: ");
     scanf("%s", name);
 
+    system("cls");
     while (fread(&medicine, sizeof(Medicine), 1, medicineFile)) {
         if (strcmp(medicine.name, name) == 0) {
             found = 1;
@@ -402,24 +435,29 @@ void searchMedicineAdmin() {
     fclose(medicineFile);
 
     if (!found) {
+        system("cls");
         printf("Medicine not found.\n");
     }
 }
 
 
 void customerSupportAdmin() {
+    system("cls");
     printf("Contact with 3idiot@gmail.com\n");
 }
 
 void refundAndReturnCheck() {
+    system("cls");
     printf("Refund and return request check feature not implemented yet.\n");
 }
 
 void medicineRequestCheck() {
+    system("cls");
     printf("Medicine request check feature not implemented yet.\n");
 }
 
 void addDiscount() {
+    system("cls");
     printf("You can add when adding new medicine or update medicine\n");
 }
 
@@ -436,14 +474,18 @@ void customerModule() {
 
         switch (choice) {
             case 1:
+                system("cls");
                 customerRegister();
                 break;
             case 2:
+                system("cls");
                 customerLogin();
                 break;
             case 3:
+                system("cls");
                 return;
             default:
+                system("cls");
                 printf("Invalid choice! Please try again.\n");
         }
     }
@@ -469,7 +511,7 @@ void customerRegister() {
 
     fwrite(&customer, sizeof(User), 1, userFile);
     fclose(userFile);
-
+    system("cls");
     printf("Customer registered successfully!\n");
 }
 
@@ -499,6 +541,7 @@ void customerLogin() {
     fclose(userFile);
 
     if (found) {
+        system("cls");
         printf("Login successful!\n");
         int choice;
         while (1) {
@@ -506,7 +549,7 @@ void customerLogin() {
             printf("1. Search Medicine\n");
             printf("2. Buy Medicine\n");
             printf("3. View Cart\n");
-            printf("4. Request Refund\n");
+            printf("4. Request Refund (Disabled)\n");
             printf("5. Add to Cart\n");
             printf("6. Payment Method\n");
             printf("7. Reset Credentials\n");
@@ -517,36 +560,47 @@ void customerLogin() {
 
             switch (choice) {
                 case 1:
+                    system("cls");
                     searchMedicine();
                     break;
                 case 2:
+                    system("cls");
                     buyMedicine();
                     break;
                 case 3:
+                    system("cls");
                     viewCart();
                     break;
                 case 4:
+                    system("cls");
                     requestRefund();
                     break;
                 case 5:
+                    system("cls");
                     addToCart();
                     break;
                 case 6:
+                    system("cls");
                     paymentMethod();
                     break;
                 case 7:
+                    system("cls");
                     resetCustomerCredentials();
                     break;
                 case 8:
+                    system("cls");
                     customerSupport();
                     break;
                 case 9:
+                    system("cls");
                     return;
                 default:
+                    system("cls");
                     printf("Invalid choice! Please try again.\n");
             }
         }
     } else {
+            system("cls");
         printf("Invalid credentials.\n");
     }
 }
@@ -564,7 +618,7 @@ void searchMedicine() {
 
     printf("Enter medicine Name to search: ");
     scanf("%s", name);
-
+    system("cls");
     while (fread(&medicine, sizeof(Medicine), 1, medicineFile)) {
         if (strcmp(medicine.name, name) == 0) {
             found = 1;
@@ -577,6 +631,7 @@ void searchMedicine() {
     fclose(medicineFile);
 
     if (!found) {
+        system("cls");
         printf("Medicine not found.\n");
     }
 }
@@ -589,6 +644,7 @@ void buyMedicine() {
 
     medicineFile = fopen("medicines.txt", "r");
     if (!medicineFile) {
+        system("cls");
         printf("Error opening file.\n");
         return;
     }
@@ -624,8 +680,10 @@ void buyMedicine() {
     rename("temp.txt", "medicines.txt");
 
     if (found) {
+        system("cls");
         printf("Order placed successfully!\n");
     } else {
+        system("cls");
         printf("Medicine not available in the desired quantity.\n");
     }
 }
@@ -637,13 +695,14 @@ void viewCart() {
 
     orderFile = fopen("orders.txt", "r");
     if (!orderFile) {
+        system("cls");
         printf("Error opening file.\n");
         return;
     }
 
     printf("Enter your username to view cart: ");
     scanf("%s", username);
-
+    system("cls");
     printf("\n=== Your Cart ===\n");
     while (fread(&order, sizeof(Order), 1, orderFile)) {
         if (strcmp(order.username, username) == 0) {
@@ -656,6 +715,7 @@ void viewCart() {
     fclose(orderFile);
 
     if (!found) {
+        system("cls");
         printf("No items in your cart.\n");
     }
 }
@@ -669,6 +729,7 @@ void requestRefund() {
     orderFile = fopen("orders.txt", "r");
 
     if (!orderFile || !tempFile) {
+        system("cls");
         printf("Error opening file.\n");
         return;
     }
@@ -682,6 +743,7 @@ void requestRefund() {
         if (strcmp(order.username, username) == 0 && order.medicineID == id && order.status == 0) {
             found = 1;
             order.status = 1; 
+            system("cls");
             printf("Refund request accepted for Medicine ID: %d\n", id);
         }
         fwrite(&order, sizeof(Order), 1, tempFile);
@@ -694,22 +756,27 @@ void requestRefund() {
     rename("temp.txt", "orders.txt");
 
     if (!found) {
+        system("cls");
         printf("Order not found for refund.\n");
     }
 }
 
 void addToCart() {
+    system("cls");
     printf("You can buy directly\n");
 }
 
 void paymentMethod() {
+    system("cls");
     printf("Already added when you create your account\n");
 }
 
 void resetCustomerCredentials() {
+    system("cls");
     printf("Contact with 3idiot@gmail.com\n");
 }
 
 void customerSupport() {
+    system("cls");
     printf("Contact with 3idiot@gmail.com\n");
 }
